@@ -91,12 +91,12 @@ impl Debug for WsClient {
 }
 
 #[derive(Debug, Default, Clone)]
-pub struct WSClientBuilder {
+pub struct WsClientBuilder {
     relay: Option<String>,
     keys: Option<Keys>,
 }
 
-impl WSClientBuilder {
+impl WsClientBuilder {
     pub fn relay<T: Into<String>>(mut self, relay: T) -> Self {
         self.relay = Some(relay.into());
         self
@@ -136,8 +136,8 @@ impl WSClientBuilder {
 
 impl WsClient {
     #[allow(clippy::new_ret_no_self)]
-    pub fn new() -> WSClientBuilder {
-        WSClientBuilder::default()
+    pub fn new() -> WsClientBuilder {
+        WsClientBuilder::default()
     }
 
     pub fn pubkey(&self) -> PublicKey {
