@@ -106,6 +106,10 @@ impl WsClientBuilder {
         self.relay = Some(relay.into());
     }
 
+    pub fn get_relay(&self) -> Option<String> {
+        self.relay.clone()
+    }
+
     pub fn keys(mut self, keys: Keys) -> Self {
         self.keys = Some(keys);
         self
@@ -113,6 +117,10 @@ impl WsClientBuilder {
 
     pub fn set_keys(&mut self, keys: Keys) {
         self.keys = Some(keys);
+    }
+
+    pub fn get_keys(&self) -> Option<&Keys> {
+        self.keys.as_ref()
     }
 
     pub fn connect(self) -> Result<WsClient, Error> {
