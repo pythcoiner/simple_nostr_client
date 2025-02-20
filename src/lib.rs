@@ -1,4 +1,5 @@
 use std::{
+    fmt::Debug,
     io::ErrorKind,
     sync::mpsc::{self, Receiver, Sender},
     time::{Duration, SystemTime},
@@ -56,11 +57,13 @@ impl From<ParseError> for Error {
 
 type Message = String;
 
+#[derive(Debug)]
 pub enum SendMsg {
     Msg(Message),
     Stop,
 }
 
+#[derive(Debug)]
 pub enum RecvMsg {
     Close,
     Msg(Message),
@@ -75,6 +78,16 @@ pub struct WsClient {
     connected: bool,
     relays: Vec<String>,
     keys: Keys,
+}
+
+impl Debug for WsClient {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("WsClient")
+            .field("connected", &self.connected)
+            .field("relays", &self.relays)
+            .field("keys", &self.keys)
+            .finish()
+    }
 }
 
 #[derive(Debug, Default, Clone)]
