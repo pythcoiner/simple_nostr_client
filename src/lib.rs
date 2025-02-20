@@ -76,7 +76,7 @@ pub struct WsClient {
     receiver: Receiver<RecvMsg>,
     ws_sender: Option<Sender<RecvMsg>>,
     connected: bool,
-    relays: Vec<String>,
+    relay: String,
     keys: Keys,
 }
 
@@ -84,7 +84,7 @@ impl Debug for WsClient {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WsClient")
             .field("connected", &self.connected)
-            .field("relays", &self.relays)
+            .field("relay", &self.relay)
             .field("keys", &self.keys)
             .finish()
     }
@@ -134,7 +134,7 @@ impl WsClientBuilder {
             receiver,
             ws_sender: Some(ws_sender),
             connected: false,
-            relays: vec![url],
+            relay: url,
             keys,
         };
         client.listen()?;
@@ -279,8 +279,8 @@ impl WsClient {
         }
     }
 
-    pub fn get_relays(&self) -> &Vec<String> {
-        &self.relays
+    pub fn get_relay(&self) -> String {
+        self.relay.clone()
     }
 
     pub fn is_connected(&self) -> Result<(), Error> {
