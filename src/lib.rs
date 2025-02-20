@@ -17,6 +17,9 @@ use websocket::{
     WebSocketError,
 };
 
+pub use nostr;
+pub use websocket;
+
 const PING_INTERVAL: u64 = 5; // ping interval in seconds
 
 #[derive(Debug)]
