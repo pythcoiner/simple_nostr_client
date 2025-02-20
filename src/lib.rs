@@ -98,13 +98,21 @@ pub struct WsClientBuilder {
 
 impl WsClientBuilder {
     pub fn relay<T: Into<String>>(mut self, relay: T) -> Self {
-        self.relay = Some(relay.into());
+        self.set_relay(relay);
         self
+    }
+
+    pub fn set_relay<T: Into<String>>(&mut self, relay: T) {
+        self.relay = Some(relay.into());
     }
 
     pub fn keys(mut self, keys: Keys) -> Self {
         self.keys = Some(keys);
         self
+    }
+
+    pub fn set_keys(&mut self, keys: Keys) {
+        self.keys = Some(keys);
     }
 
     pub fn connect(self) -> Result<WsClient, Error> {
